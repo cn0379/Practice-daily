@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+
+  <!-- <script src="./bind.js"></script> -->
+  <script>
+    // var fun = function () {
+    //   this.name = 'peter';
+
+    //   return {
+    //     name: 'jack'
+    //   };
+    // }
+
+    // var fun1 = function () {
+    //   this.name = 'peter';
+
+    //   return 'jack';
+    // }
+
+    // var p1 = new fun();
+    // var p2 = new fun1();
+    // console.log(p1.name) // jack
+    // console.log(p2.name) // jack
+    // // p2.name; // peter
+
+    // var arr = ['2013-08-09', '2014-05-01', '2012-11-22', '2013-08-09']
+    // var a = [...new Set(arr)]
+
+    // let color = "red";
+    // var color = "green";
+    // let obj = {
+    //   color: "blue"
+    // };
+    // let sayColor = () => {
+    //   return this.color;
+    // };
+
+    // console.log(sayColor.apply(obj))
+    //red
+
+    // var bol = true;
+    // let json = {
+    //   bol: false,
+    //   fun1: function () {//普通函数
+    //     !function () {//普通函数自调用
+    //       console.log(this.bol);
+    //     }();
+    //   },
+    //   fun2: () => {//箭头函数
+    //     +function () {//普通函数自调用
+    //       console.log(this.bol);
+    //     }();
+
+    //   },
+    //   fun3() {//普通函数
+    //     (() => { console.log(this.bol) })()//箭头函数自调用
+    //   },
+    //   fun4: () => {//箭头函数
+    //     (() => { console.log(this.bol) })()//箭头函数自调用
+    //   }
+    // }
+    // json.fun1();//true
+    // json.fun2();//true
+    // json.fun3();//false
+    // let x = json.fun3;
+    // x();//true;
+    // json.fun4();//true
+
+
+    // function People() {
+    //     fn: () => {
+    //       console.log(this)
+    //     }
+    // }
+    // var p = new People()
+    // console.log(p.fn)
+    // p.obj.fn()
+    // var fn2 = p.fn
+    // fn2()
+    //  var bol=true;
+    // let json={
+    //  bol:false,
+    //  fun3:()=>{//箭头函数
+    //       +function(){//普通函数自调用
+    //          (()=>{console.log(this.bol)})();
+    //      }(json);//让this指向json
+    //  },
+    // fun3()  { //普通函数                
+    // ~function () { //普通函数自调用
+    // (() => { console.log(this.bol) })();
+    // }.call(this);//让this指向调用者，当调用者改变的时候this也改变了
+    // },
+    //   fun4 ()  { //普通函数                
+    //        ~function () { //普通函数自调用
+    //         (() => {console.log(this.bol) })();
+    //      }.call(json);//让this指向json，调用者改变this始终指向json
+    //  }
+    // }
+    // json.fun3();//false
+    // json.fun3()
+    //true        
+    // json.fun4();//false       
+    // let z=json.fun4;        
+    // z();//false
+
+
+    // var obj2 = {
+    //   name:'小张',
+    //   age: 18
+    // }
+    // var obj2 = ['11111',22222] 
+    // var obj3 = obj2.slice(0)
+    // obj3[0] = 555555
+
+    // console.log(obj2)
+    // console.log(obj3)
+
+    Function.prototype.bind_ = function () {
+      var self = this                        // 保存原函数
+        context = [].shift.call(arguments), // 保存需要绑定的this上下文
+        args = [].slice.call(arguments);    // 剩余的参数转为数组
+       return function () {                    // 返回一个新函数
+        self.apply(context, [].concat.call(args, [].slice.call(arguments)));
+      }
+    }
+
+
+    // apple.say.bind_(another)()
+
+
+    var obj1 = {
+      a:111
+    }
+
+    var obj2 = {
+      a:2222
+    }
+
+    function fn () {
+      console.log(this,...arguments)
+    }
+    let foo = fn
+    // foo()
+    fo1 = foo.bind_(obj2,555555)
+    fo1()
+    // foo.call(obj1)
+  </script>
+
+</body>
+
+</html>

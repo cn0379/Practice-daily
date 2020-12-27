@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // var a = 2;
+    bind_ = function(context, ...res) {
+      console.log(context);
+    let self = this
+    console.log(self);
+    return function(...arg) {
+        return self.apply(context, [...res,...arg])
+    }
+}
+
+
+    // // console.log( Function.prototype.bind)
+    // Function.prototype.bind(a,)
+
+    // function a() {
+    //   console.log()
+    // }
+    function fruits() { }
+
+    fruits.prototype = {
+      color: "red",
+      say: function () {
+        console.log("My color is " + this.color);
+      }
+    };
+
+    var another = {
+      color: "yellow"
+    };
+    var apple = new fruits;
+    apple.say();                //My color is red
+    apple.say.call(another);    //My color is yellow
+    apple.say.apply(another);   //My color is yellow
+    var a = bind_(apple.say,another);   //My color is yellow
+
+  </script>
+
+</body>
+
+</html>
